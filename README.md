@@ -1,8 +1,8 @@
 # TNFlow
 
-Amortized posterior inference for Trans-Neptunian Object surface composition.
+Companion repository for the paper: [arXiv link placeholder]
 
-> **Paper:** [arXiv link placeholder]
+This repository contains the code and pretrained model needed to reproduce the results reported in the paper. It is not an official release of TNFlow.
 
 TNFlow is a transformer and conditional neural spline flow that learns to invert the Shkuratov radiative transfer model for TNO surface composition. Given a reflectance spectrum, it returns a full multimodal posterior over simplex-valid compositions and grain sizes in under a second on CPU. The model is trained entirely on synthetic spectra (463,275 Shkuratov mixtures over 20 surface components) and generalizes to unseen combinations of known components. Qualitative tests on real JWST spectra reveal a sim-to-real gap that future work will address.
 
