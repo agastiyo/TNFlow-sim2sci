@@ -15,7 +15,7 @@ pip install -r requirements.txt
 pip install --no-deps cana sdoc
 ```
 
-`cana` and `sdoc` must be installed with `--no-deps` to avoid pulling in `numba`. The codebase includes a no-op numba shim.
+`cana` and `sdoc` must be installed with `--no-deps`.
 
 ## Data
 
@@ -97,6 +97,56 @@ Per-solution accuracy on the test and group-holdout OOD splits (500 posterior dr
 | Mean mode count | 2.50 | 2.64 |
 | Multimodal (%) | 88.9 | 91.7 |
 | Posterior sharpness | 0.203 ± 0.106 | 0.228 ± 0.066 |
+
+## Source File Index
+
+### `src/model/`
+
+| File | Description |
+|------|-------------|
+| `tnflow.py` | Top-level model: tokenizer, transformer, composition CNF, and grain flow |
+| `transformer.py` | Pre-norm transformer encoder with learned query pooling |
+| `tokenizers.py` | Raw (λ, R) spectrum to per-channel tokens with positional encoding |
+| `cnf.py` | Conditional normalizing flow over the K-component composition simplex |
+| `grain.py` | Per-component grain-size posterior (shared 1-D NSF) |
+| `posterior.py` | Posterior analysis: credible intervals, BIC-GMM mode search, plotting |
+
+### `src/pipeline/`
+
+| File | Description |
+|------|-------------|
+| `train.py` | Training loop: combined composition + grain NLL |
+| `test.py` | Evaluation: per-solution accuracy, calibration (PIT), and timing |
+| `apply_jwst.py` | Apply TNFlow to real JWST DiSCo-TNOs spectra (appendix figure + mode report) |
+| `inference.py` | Interactive single-spectrum inference with plots and printed summaries |
+| `checkpoint.py` | Checkpoint load / save |
+| `metrics.py` | Evaluation metrics (top-N recall, TV distance, PIT, energy score) |
+
+### `src/data_utils/`
+
+| File | Description |
+|------|-------------|
+| `dataloader.py` | Builds train / val / OOD batches from SpectrumSamples with noise augmentation |
+| `store.py` | Parquet-backed sample store and declarative dataset splits |
+| `components.py` | Component material to integer code mapping (K=20 enum) |
+| `spectrum_sample.py` | SpectrumSample dataclass: wavelength, reflectance, composition target, grains |
+| `generate_shkuratov.py` | Generate synthetic spectra with the CANA Shkuratov intimate-mixture model |
+| `plot_one_shkuratov.py` | Generate and plot a single Shkuratov spectrum |
+
+### `src/data_utils/processing/`
+
+| File | Description |
+|------|-------------|
+| `shkuratov.py` | Shkuratov RT model grid (bestfit files) to synthetic SpectrumSamples |
+| `more_shkuratov.py` | CANA/SDOC synthetic spectra to SpectrumSamples |
+| `jwst.py` | JWST DiSCo-TNOs PRISM spectra to unlabelled SpectrumSamples |
+| `other_objects.py` | Miscellaneous published spectra (Pholus, Quaoar, Iapetus) to SpectrumSamples |
+
+### `src/`
+
+| File | Description |
+|------|-------------|
+| `config.py` | Project paths, device selection, and shared defaults |
 
 ## License
 
