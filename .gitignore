@@ -16,17 +16,11 @@ data/train/
 !data/JWST_DiSCO-TNOs/
 !data/other_objects/
 
-# Model checkpoints
-*.pt
-!tnflow_checkpoint.pt
-
-# Generated outputs (the pipeline regenerates them)
+# Generated outputs
 training_history.json
 jwst_apply.json
 pit_data.json
 *.png
-
-# Training logs
 runs/
 
 # Non-code content
@@ -35,16 +29,6 @@ plots/
 docs/
 literature/
 
-# Internal review documents
-review_panel_*.md
-
 # Deferred to post-decision (double-blind)
 LICENSE
 tex_files/
-
-# Utility scripts not on the reproduction path
-src/pipeline/inference.py
-src/data_utils/plot_one_shkuratov.py
-src/data_utils/generate_shkuratov.py
-src/data_utils/processing/henault.py
-src/data_utils/processing/zhang.py
